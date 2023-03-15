@@ -1,0 +1,65 @@
+.pizza_block{
+    width: 280px;
+    text-align: center;
+    margin-bottom: 65px;
+    margin-left: 35px;
+}
+
+.pizza_block__image{
+    width: 260px;
+}
+
+.pizza_block__title{
+    font-size: 20px;
+    font-weight: 900;
+    margin-bottom: 20px;
+}
+.pizza_block__selector{
+    display: flex;
+    background-color: #f3f3f3;
+    border-radius: 10px;
+    flex-direction: column;
+    padding: 6px;
+}
+.pizza_block__selector ul{
+    display: flex;
+    flex: 1;
+}
+.pizza_block__selector ul li{
+    padding: 8px;
+    flex: 1;
+    font-weight: 600;
+    font-size: 14px;
+    margin: 1%;
+    cursor: pointer;
+}
+.active {
+    background: #ffffff;
+    -webkit-box-shadow: 0px 2px 4px rgba(0,0,0,0.04);
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.04);
+    border-radius: 5px;
+    cursor: auto;
+}
+.pizza_block__bottom{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.pizza_block__price {
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 27px;
+    letter-spacing: 0.015em;
+}
+
+.button--outline {
+    background: #fff;
+    border-color: #fe5f1e;
+}
+.button--outline, .button--outline span {
+    color: #fff;
+}
+.button_add img {
+    margin-right: 8px;
+}
