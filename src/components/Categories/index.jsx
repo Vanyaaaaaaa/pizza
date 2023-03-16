@@ -14,13 +14,6 @@ export function Categories() {
           <li>Закрытые</li>
         </ul>
       </div>
-      <div className="sort">
-        <div className={Style.sort__label}>
-          <img src="./img/arrow.svg" />
-          <b>Сортировка по:</b>
-          <span>популярности</span>
-        </div>
-      </div>
     </div>
   );
 }

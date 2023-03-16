@@ -7,7 +7,22 @@ export function Cart() {
     <div>
       <div className="container-cart">
         {items > 0 ? (
-          <Item />
+          <div className="cart">
+            <div className="cart__top">
+              <h2 className="content__title">
+                <img width={30} src="./img/cart1.svg" alt="cart" />
+                Корзина
+              </h2>
+              <div className="cart__clear">
+                <img width={20} src="./img/clean.svg" alt="clean" />
+                <span>Очистить корзину</span>
+              </div>
+            </div>
+            <Item />
+            <Item />
+            <Item />
+            <Item />
+          </div>
         ) : (
           <div className="cart cart__empty">
             <h2>

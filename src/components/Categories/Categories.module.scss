@@ -1,9 +1,3 @@
-.content__top{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
 .categories ul{
     display: flex;
 }
@@ -14,24 +8,6 @@
     border-radius: 30px;
     margin-right: 10px;
     font-weight: bold;
-    cursor: pointer;
-    -webkit-transition: background-color 0.1s ease-in-out;
-    transition: background-color 0.1s ease-in-out;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-.sort__label img{
-    margin-right: 8px;
-}
-
-.sort__label span{
-    margin-left: 8px;
-    color: #fe5f1e;
-    border-bottom: 1px dashed #fe5f1e;
     cursor: pointer;
 }
 

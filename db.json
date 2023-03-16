@@ -1,0 +1,47 @@
+{
+  "pizza": [
+    {
+      "id": 1,
+      "title": "Чизбургер-пицца",
+      "price": 395,
+      "imgUrl": "https://dodopizza-a.akamaihd.net/static/Img/Products/3a948b9d5af14d219e2c54282229755a_138x138.jpeg"
+    },
+    {
+      "id": 2,
+      "title": "Сырная",
+      "price": 450,
+      "imgUrl": "/img/pizzaImg/2.png"
+    },
+    {
+      "id": 3,
+      "title": "Креветки по-азиатски",
+      "price": 290,
+      "imgUrl": "/img/pizzaImg/3.png"
+    },
+    {
+      "id": 4,
+      "title": "Сырный цыпленок",
+      "price": 385,
+      "imgUrl": "/img/pizzaImg/4.png"
+    },
+    {
+      "id": 5,
+      "title": "Чизбургер-пицца",
+      "price": 395,
+      "imgUrl": "/img/pizzaImg/1.png"
+    },
+    {
+      "id": 6,
+      "title": "Сырная",
+      "price": 450,
+      "imgUrl": "/img/pizzaImg/2.png"
+    },
+    {
+      "id": 7,
+      "title": "Креветки по-азиатски",
+      "price": 290,
+      "imgUrl": "/img/pizzaImg/3.png"
+    }
+  ],
+  "orders": []
+}
