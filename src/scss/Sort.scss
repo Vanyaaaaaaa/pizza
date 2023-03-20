@@ -1,0 +1,45 @@
+.sort{
+    cursor: pointer;
+}
+.sort__label{
+    img{
+        margin-right: 8px;
+        transform: rotate(180deg);
+        transition: 0.5s;
+        &.active{
+            transform: rotate(360deg);
+        }
+    }
+}
+.sort__label span{
+    margin-left: 8px;
+    color: #fe5f1e;
+    border-bottom: 1px dashed #fe5f1e;
+}
+.sort__popup {
+    position: absolute;
+    right: 80px;
+    margin-top: 15px;
+    background: #ffffff;
+    -webkit-box-shadow: 0px 5px 15px rgba(0,0,0,0.09);
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.09);
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 10px 0;
+    width: 160px;
+    visibility: hidden;
+    &.sort__open{
+        visibility: visible;
+    }
+    ul {
+        overflow: hidden;
+        li {
+            padding: 12px 20px;
+            cursor: pointer;
+            &.active {
+                font-weight: bold;
+                color: #fe5f1e;
+            }            
+        }
+    }
+}

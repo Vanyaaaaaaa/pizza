@@ -1,4 +1,8 @@
+import React from 'react';
+
 export function Item() {
+  const [count, setCount] = React.useState(0);
+
   return (
     <div className="content__items">
       <div className="cart__item">
@@ -13,7 +17,7 @@ export function Item() {
           <div class="button button--outline button--circle cart__item-count-minus">
             <img width={10} height={10} src="./img/minus.svg" alt="minus" />
           </div>
-          <b>2</b>
+          <b>{count}</b>
           <div class="button button--outline button--circle cart__item-count-plus">
             <img width={10} height={10} src="./img/plusOrang.svg" alt="plus" />
           </div>

@@ -10,12 +10,20 @@ function App() {
 
   const fetchData = async () => {
     try {
-      const items = await axios.get('http://localhost:3000/pizza');
-      addPizzaItems(items.data);
+      const items = await fetch('http://localhost:3001/pizza').then((res) => res.json());
+      addPizzaItems(items);
     } catch (error) {
-      alert('Ошибка при подгрузке данных');
+      alert('Произошла ошибка при загрузке пицц');
       console.error(error);
     }
+    // try {
+    //   const items = await axios.get('http://localhost:3001/pizza');
+    //   addPizzaItems(items.data);
+    //   console.log(items.data);
+    // } catch (error) {
+    //   alert('Ошибка при подгрузке данных');
+    //   console.error(error);
+    // }
   };
 
   React.useEffect(() => {
@@ -28,7 +36,7 @@ function App() {
       <div className="content">
         <div className="container">
           <Home items={pizzaItems} />
-          {/* <Cart /> */}
+          <Cart />
         </div>
       </div>
     </div>

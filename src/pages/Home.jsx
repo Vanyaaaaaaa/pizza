@@ -13,7 +13,7 @@ export function Home({ items }) {
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
         {items.map((item) => (
-          <Card title={item.title} price={item.price} imgUrl={item.imgUrl} />
+          <Card key={item.id} {...item} />
         ))}
       </div>
     </>
