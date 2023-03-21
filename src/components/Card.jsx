@@ -5,7 +5,6 @@ export function Card({ title, price, imageUrl, sizes }) {
   const dough = ['Тонкое', 'Традиционное'];
   const [typeDough, setTypeDough] = React.useState(0);
   const [sizeDough, setSizeDough] = React.useState(0);
-
   const addPizza = () => {
     addCount(count + 1);
   };
@@ -45,7 +44,7 @@ export function Card({ title, price, imageUrl, sizes }) {
         <div onClick={addPizza} className="button button__outline button_add">
           <img width={12} height={12} src="./img/plusWhite.svg" alt="plus" />
           <span>Добавить</span>
-          {count > 0 ? <i className="count">{count}</i> : null}
+          <i className="count">{count > 0 ? count : 0}</i>
         </div>
       </div>
     </div>
