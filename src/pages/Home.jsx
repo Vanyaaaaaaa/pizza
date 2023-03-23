@@ -6,11 +6,11 @@ import { Context } from '../Context';
 import { Loader } from '../components/Loader';
 
 export function Home({ items }) {
-  const loader = React.useContext(Context);
+  const { loader } = React.useContext(Context);
 
   return (
     <>
-      <div className="d-flex align-center justify-between">
+      <div className="sort d-flex align-center justify-between">
         <Categories />
         <Sort />
       </div>

@@ -10,13 +10,17 @@ import { Context } from './Context';
 function App() {
   const [pizzaItems, addPizzaItems] = React.useState([]);
   const [loader, setLoader] = React.useState(false);
+  const [categoriesIndex, setCategoriesIndex] = React.useState(0);
+  const [sortIndex, setSortIndex] = React.useState(0);
 
   const fetchData = async () => {
     try {
-      const items = await axios.get('http://localhost:3001/pizza');
+      setLoader(false);
+      const items = await axios.get(
+        `http://localhost:3001/pizza${categoriesIndex === 0 ? '' : '?category=' + categoriesIndex}`,
+      );
       addPizzaItems(items.data);
       setLoader(true);
-      console.log(items.data);
     } catch (error) {
       alert('Ошибка при подгрузке данных');
       console.error(error);
@@ -25,10 +29,11 @@ function App() {
 
   React.useEffect(() => {
     fetchData();
-  }, []);
+  }, [categoriesIndex, sortIndex]);
 
   return (
-    <Context.Provider value={loader}>
+    <Context.Provider
+      value={{ loader, categoriesIndex, sortIndex, setCategoriesIndex, setSortIndex }}>
       <div className="wrapper">
         <Header />
         <div className="content">

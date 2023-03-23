@@ -1,6 +1,8 @@
 .categories{
     ul{
         display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
         li{
             background-color: #f9f9f9;
             padding: 13px 30px;
@@ -17,5 +19,16 @@
                 color: #fff
             }
         }
+    }
+}
+@media (max-width:1280px) {
+    .sort{
+        flex-direction: column;
+    }
+    .sort__label{
+        margin-top: 10px;
+    }
+    li{
+        margin-bottom: 10px;
     }
 }

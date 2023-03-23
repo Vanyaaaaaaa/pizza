@@ -4,7 +4,7 @@ export function Item() {
   const [count, setCount] = React.useState(0);
 
   return (
-    <div className="content__items">
+    <div className="content__items__cart">
       <div className="cart__item">
         <div className="cart__item_img">
           <img src="./img/pizza1.jpeg" alt="pizza" />

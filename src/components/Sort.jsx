@@ -1,10 +1,15 @@
 import React from 'react';
+import { Context } from '../Context';
 
 export function Sort() {
-  const sortList = ['популярности', 'цене', 'алфавиту'];
+  const sortList = [
+    { name: 'популярности', sort: 'rating' },
+    { name: 'цене', sort: 'price' },
+    { name: 'алфавиту', sort: 'title' },
+  ];
   const [sortActive, setSortActive] = React.useState(false);
-  const [sort, setSort] = React.useState(0);
-  let sortItem = sortList[sort];
+  const { sortIndex, setSortIndex } = React.useContext(Context);
+  let sortItem = sortList[sortIndex];
 
   return (
     <div onClick={() => setSortActive(!sortActive)} className="sort">
@@ -18,9 +23,9 @@ export function Sort() {
               return (
                 <li
                   key={index}
-                  onClick={() => setSort(index)}
-                  className={sort === index ? 'active' : ''}>
-                  {item}
+                  onClick={() => setSortIndex(index)}
+                  className={sortIndex === index ? 'active' : ''}>
+                  {item.name}
                 </li>
               );
             })}

@@ -1,12 +1,9 @@
 import React from 'react';
+import { Context } from '../Context';
 
 export function Categories() {
-  const [activeIndex, setActiveIndex] = React.useState(0);
   const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
-
-  const changeCateg = (id) => {
-    setActiveIndex(id);
-  };
+  const { categoriesIndex, setCategoriesIndex } = React.useContext(Context);
 
   return (
     <div className="content__top">
@@ -16,8 +13,8 @@ export function Categories() {
             return (
               <li
                 key={index}
-                onClick={() => changeCateg(index)}
-                className={activeIndex === index ? 'active' : ''}>
+                onClick={() => setCategoriesIndex(index)}
+                className={categoriesIndex === index ? 'active' : ''}>
                 {item}
               </li>
             );
