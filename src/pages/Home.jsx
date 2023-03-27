@@ -6,19 +6,22 @@ import { Context } from '../Context';
 import { Loader } from '../components/Loader';
 
 export function Home({ items }) {
-  const { loader } = React.useContext(Context);
-
+  const { loader, categories, categoriesIndex, inputValue } = React.useContext(Context);
+  let filtrItems =
+    inputValue === ''
+      ? items
+      : items.filter((item) => item.title.toLowerCase().includes(inputValue.toLowerCase()));
   return (
     <>
       <div className="sort d-flex align-center justify-between">
         <Categories />
         <Sort />
       </div>
-      <h2 className="content__title">Все пиццы</h2>
+      <h2 className="content__title">{categories[categoriesIndex]} пиццы</h2>
       <div className="content__items">
         {loader
-          ? items.map((item) => <Card key={item.id} {...item} />)
-          : [...Array(8)].map(() => <Loader />)}
+          ? filtrItems.map((item) => <Card key={item.id} {...item} />)
+          : [...Array(8)].map((i) => <Loader key={i} />)}
       </div>
     </>
   );

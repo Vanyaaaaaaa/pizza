@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import React from 'react';
 import axios from 'axios';
 import { Home } from './pages/Home';
 import { Header } from './components/Header';
@@ -12,12 +12,22 @@ function App() {
   const [loader, setLoader] = React.useState(false);
   const [categoriesIndex, setCategoriesIndex] = React.useState(0);
   const [sortIndex, setSortIndex] = React.useState(0);
+  const [inputValue, setInputValue] = React.useState('');
+  const sortList = [
+    { name: 'популярности', sort: 'rating' },
+    { name: 'цене', sort: 'price' },
+    { name: 'алфавиту', sort: 'title' },
+  ];
+  const categories = ['Все', 'Мясные', 'Вегетарианские', 'Гриль', 'Острые', 'Закрытые'];
 
   const fetchData = async () => {
     try {
       setLoader(false);
+      const categ = categoriesIndex > 0 ? `category=${categoriesIndex}` : '';
+      const sort = sortList[sortIndex].sort;
+      const sortAscDesc = categoriesIndex === 2 ? `ASC` : `DESC`;
       const items = await axios.get(
-        `http://localhost:3001/pizza${categoriesIndex === 0 ? '' : '?category=' + categoriesIndex}`,
+        `http://localhost:3001/pizza?${categ}&sortBy=${sort}&order=${sortAscDesc}`,
       );
       addPizzaItems(items.data);
       setLoader(true);
@@ -33,7 +43,17 @@ function App() {
 
   return (
     <Context.Provider
-      value={{ loader, categoriesIndex, sortIndex, setCategoriesIndex, setSortIndex }}>
+      value={{
+        loader,
+        inputValue,
+        categoriesIndex,
+        sortIndex,
+        sortList,
+        categories,
+        setCategoriesIndex,
+        setSortIndex,
+        setInputValue,
+      }}>
       <div className="wrapper">
         <Header />
         <div className="content">

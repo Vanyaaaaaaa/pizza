@@ -2,13 +2,8 @@ import React from 'react';
 import { Context } from '../Context';
 
 export function Sort() {
-  const sortList = [
-    { name: 'популярности', sort: 'rating' },
-    { name: 'цене', sort: 'price' },
-    { name: 'алфавиту', sort: 'title' },
-  ];
   const [sortActive, setSortActive] = React.useState(false);
-  const { sortIndex, setSortIndex } = React.useContext(Context);
+  const { sortIndex, setSortIndex, sortList } = React.useContext(Context);
   let sortItem = sortList[sortIndex];
 
   return (
@@ -16,7 +11,7 @@ export function Sort() {
       <div className="sort__label">
         <img src="./img/arrow.svg" className={`sort__label ${sortActive ? 'active' : ''}`} />
         <b>Сортировка по:</b>
-        <span>{sortItem}</span>
+        <span>{sortItem.name}</span>
         <div className={`sort__popup ${sortActive ? 'sort__open' : ''}`}>
           <ul>
             {sortList.map((item, index) => {

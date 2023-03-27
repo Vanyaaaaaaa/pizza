@@ -2,8 +2,7 @@ import React from 'react';
 import { Context } from '../Context';
 
 export function Categories() {
-  const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
-  const { categoriesIndex, setCategoriesIndex } = React.useContext(Context);
+  const { categoriesIndex, setCategoriesIndex, categories } = React.useContext(Context);
 
   return (
     <div className="content__top">
