@@ -1,0 +1,23 @@
+.pagination{
+    display: flex;
+    justify-content: center;
+    ul{
+        padding: 5px;
+        display: flex;
+        background-color: #f3f3f3;
+        border-radius: 10px;
+        width: 200px;
+        height: 30px;
+        li{
+            margin: auto;
+            width: 40px;
+            display: flex;
+            justify-content: center;
+            border-radius: 5px;
+            cursor: pointer;
+            &.selected{
+                background-color: #ffffff;
+            }
+        }
+    }
+}

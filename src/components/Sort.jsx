@@ -1,13 +1,21 @@
 import React from 'react';
+import { setIndexSort } from '../redux/slices/filterSlice';
 import { Context } from '../Context';
+import { useDispatch, useSelector } from 'react-redux';
 
 export function Sort() {
   const [sortActive, setSortActive] = React.useState(false);
-  const { sortIndex, setSortIndex, sortList } = React.useContext(Context);
-  let sortItem = sortList[sortIndex];
+  const { sortList } = React.useContext(Context);
+  const indexSort = useSelector((state) => state.filter.indexSort);
+  const dispatch = useDispatch();
+  let sortItem = sortList[indexSort];
 
   return (
-    <div onClick={() => setSortActive(!sortActive)} className="sort">
+    <div
+      tabIndex="1"
+      onBlur={() => setSortActive(false)}
+      onClick={() => setSortActive(!sortActive)}
+      className="sort">
       <div className="sort__label">
         <img src="./img/arrow.svg" className={`sort__label ${sortActive ? 'active' : ''}`} />
         <b>Сортировка по:</b>
@@ -18,8 +26,8 @@ export function Sort() {
               return (
                 <li
                   key={index}
-                  onClick={() => setSortIndex(index)}
-                  className={sortIndex === index ? 'active' : ''}>
+                  onClick={() => dispatch(setIndexSort(index))}
+                  className={indexSort === index ? 'active' : ''}>
                   {item.name}
                 </li>
               );

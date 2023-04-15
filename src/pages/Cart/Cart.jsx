@@ -1,12 +1,14 @@
 import React from 'react';
-import { Item } from './Item';
+import { Item } from './CartItem';
+import { useDispatch, useSelector } from 'react-redux';
 
 export function Cart() {
-  let items = 1;
+  let items = useSelector((state) => state.cart.items);
+  console.log(items);
   return (
     <div>
       <div className="container-cart">
-        {items > 0 ? (
+        {items.length > 0 ? (
           <div className="cart">
             <div className="cart__top">
               <h2 className="content__title">
@@ -18,10 +20,9 @@ export function Cart() {
                 <span>Очистить корзину</span>
               </div>
             </div>
-            <Item />
-            <Item />
-            <Item />
-            <Item />
+            {items.map((item) => {
+              return <Item key={item.id} {...item} />;
+            })}
           </div>
         ) : (
           <div className="cart cart__empty">

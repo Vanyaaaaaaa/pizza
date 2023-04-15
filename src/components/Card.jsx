@@ -1,12 +1,26 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-export function Card({ title, price, imageUrl, sizes }) {
-  const [count, addCount] = React.useState(0);
-  const dough = ['Тонкое', 'Традиционное'];
-  const [typeDough, setTypeDough] = React.useState(0);
-  const [sizeDough, setSizeDough] = React.useState(0);
-  const addPizza = () => {
-    addCount(count + 1);
+import { addItem } from '../redux/slices/cartSlice';
+
+const types = ['Тонкое', 'Традиционное'];
+
+export function Card({ id, title, price, imageUrl, sizes }) {
+  const dispatch = useDispatch();
+  const cartItem = useSelector((state) => state.cart.items.find((obj) => obj.id === id));
+  const [type, setType] = React.useState(0);
+  const [size, setSize] = React.useState(0);
+
+  const onClickAdd = () => {
+    const item = {
+      id,
+      title,
+      price,
+      imageUrl,
+      type: types[type],
+      size: sizes[size],
+    };
+    dispatch(addItem(item));
   };
 
   return (
@@ -16,12 +30,12 @@ export function Card({ title, price, imageUrl, sizes }) {
         <h4 className="pizza_block__title">{title}</h4>
         <div className="pizza_block__selector">
           <ul>
-            {dough.map((item, index) => {
+            {types.map((item, index) => {
               return (
                 <li
                   key={index}
-                  onClick={() => setTypeDough(index)}
-                  className={index == typeDough ? 'active' : ''}>
+                  onClick={() => setType(index)}
+                  className={index == type ? 'active' : ''}>
                   {item}
                 </li>
               );
@@ -32,8 +46,8 @@ export function Card({ title, price, imageUrl, sizes }) {
               return (
                 <li
                   key={index}
-                  onClick={() => setSizeDough(index)}
-                  className={index === sizeDough ? 'active' : ''}>
+                  onClick={() => setSize(index)}
+                  className={index === size ? 'active' : ''}>
                   {item} см.
                 </li>
               );
@@ -42,10 +56,10 @@ export function Card({ title, price, imageUrl, sizes }) {
         </div>
         <div className="pizza_block__bottom">
           <div className="pizza_block__price">от {price} ₽</div>
-          <div onClick={addPizza} className="button button__outline button_add">
+          <div onClick={() => onClickAdd()} className="button button__outline button_add">
             <img width={12} height={12} src="./img/plusWhite.svg" alt="plus" />
             <span>Добавить</span>
-            <i className="count">{count > 0 ? count : 0}</i>
+            {cartItem && <i className="count">{cartItem.count}</i>}
           </div>
         </div>
       </div>
