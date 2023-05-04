@@ -5,13 +5,13 @@ import { useDispatch } from 'react-redux';
 export function Item({ id, title, type, price, count, imageUrl, size }) {
   const dispatch = useDispatch();
 
-  // const onClickPlus = (id) => {
-  //   dispatch(
-  //     addItem({
-  //       id,
-  //     }),
-  //   );
-  // };
+  const onClickPlus = (id) => {
+    dispatch(
+      addItem({
+        id,
+      }),
+    );
+  };
 
   const onClickMinus = (id) => {
     dispatch(
@@ -33,13 +33,15 @@ export function Item({ id, title, type, price, count, imageUrl, size }) {
             {type} тесто, {size} см
           </p>
         </div>
-        <div onClick={() => onClickMinus(id)} className="cart__item_count">
-          <div class="button button--outline button--circle cart__item-count-minus">
+        <div className="cart__item_count">
+          <div
+            onClick={() => onClickMinus(id)}
+            class="button button--outline button--circle cart__item-count-minus">
             <img width={10} height={10} src="./img/minus.svg" alt="minus" />
           </div>
           <b>{count}</b>
           <div
-            // onClick={() => onClickPlus(id)}
+            onClick={() => onClickPlus(id)}
             class="button button--outline button--circle cart__item-count-plus">
             <img width={10} height={10} src="./img/plusOrang.svg" alt="plus" />
           </div>

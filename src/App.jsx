@@ -35,7 +35,7 @@ function App() {
       const sort = sortList[sortIndex].sort;
       const sortAscDesc = categoriesIndex === 2 ? `asc` : `desc`;
       const items = await axios.get(
-        `http://localhost:3001/pizza?_page=${countPage}&_limit=8&${categ}&_sort=${sort}&_order=${sortAscDesc}`,
+        `http://localhost:3000/pizza?_page=${countPage}&_limit=8&${categ}&_sort=${sort}&_order=${sortAscDesc}`,
       );
       addPizzaItems(items.data);
       setLoader(true);
