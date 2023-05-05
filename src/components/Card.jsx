@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { addItem } from '../redux/slices/cartSlice';
 
@@ -26,8 +27,10 @@ export function Card({ id, title, price, imageUrl, sizes }) {
   return (
     <div className="pizza-wrapper">
       <div className="pizza_block">
+        <Link to={`/pizzas/${id}`}>
         <img src={imageUrl} alt="" className="pizza_block__image" />
-        <h4 className="pizza_block__title">{title}</h4>
+        <h4 className="pizza_block__title">{title}{<i style={{display: cartItem ? null: "none"}} className="count">{cartItem ? cartItem.count : 0}</i>}</h4>
+        </Link>
         <div className="pizza_block__selector">
           <ul>
             {types.map((item, index) => {
@@ -59,7 +62,7 @@ export function Card({ id, title, price, imageUrl, sizes }) {
           <div onClick={() => onClickAdd()} className="button button__outline button_add">
             <img width={12} height={12} src="./img/plusWhite.svg" alt="plus" />
             <span>Добавить</span>
-            {cartItem && <i className="count">{cartItem.count}</i>}
+            {/* {cartItem && <i className="count">{cartItem.count}</i>} */}
           </div>
         </div>
       </div>

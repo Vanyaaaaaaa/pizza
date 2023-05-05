@@ -6,10 +6,12 @@ import axios from 'axios';
 import { Home } from './pages/Home';
 import { Header } from './components/Header';
 import { Cart } from './pages/Cart/Cart';
+import {PizzaPage} from './components/PizzaPage';
+import { NotFoundPage } from './components/NotFoundPage';
 import './index.scss';
 import { Routes, Route } from 'react-router-dom';
 import { Context } from './Context';
-import { setFilters } from './redux/slices/filterSlice';
+// import { setFilters } from './redux/slices/filterSlice';
 import { useDispatch } from 'react-redux';
 
 function App() {
@@ -35,7 +37,7 @@ function App() {
       const sort = sortList[sortIndex].sort;
       const sortAscDesc = categoriesIndex === 2 ? `asc` : `desc`;
       const items = await axios.get(
-        `http://localhost:3000/pizza?_page=${countPage}&_limit=8&${categ}&_sort=${sort}&_order=${sortAscDesc}`,
+        `http://localhost:3001/pizza?_page=${countPage}&_limit=8&${categ}&_sort=${sort}&_order=${sortAscDesc}`,
       );
       addPizzaItems(items.data);
       setLoader(true);
@@ -78,6 +80,7 @@ function App() {
         categories,
         setInputValue,
         setCountPage,
+        pizzaItems
       }}>
       <div className="wrapper">
         <Header />
@@ -85,7 +88,9 @@ function App() {
           <div className="container">
             <Routes>
               <Route path="/" element={<Home items={pizzaItems} />} />
+              <Route path='/pizzas/:id' element={<PizzaPage/>}/>
               <Route path="/Cart" element={<Cart />} />
+              <Route path="*" element={<NotFoundPage/>}/>
             </Routes>
           </div>
         </div>
