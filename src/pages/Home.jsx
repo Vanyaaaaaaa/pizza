@@ -1,20 +1,28 @@
-import React from 'react';
+import React from "react";
 // import qs from 'qs';
-import { useSelector } from 'react-redux';
-import { Categories } from '../components/Categories';
-import { Card } from '../components/Card';
-import { Sort } from '../components/Sort.jsx';
-import { Context } from '../Context';
-import { Loader } from '../components/Loader';
-import { Pagination } from '../components/Pagination';
+import { useSelector } from "react-redux";
+import { Categories } from "../components/Categories";
+import { Card } from "../components/Card";
+import { Sort } from "../components/Sort";
+import { Context } from "../Context";
+import { Loader } from "../components/Loader";
+import { Pagination } from "../components/Pagination";
+import { filterState } from "../redux/slices/filterSlice";
+import { itemsPizza, statusItemsPizza } from "../redux/slices/pizzaSlice";
+export function Home() {
+  const { categories, setCountPage } = React.useContext(Context);
+  // const searchValue = useSelector((state) => state.filter.searchValue);
+  // const indexActive = useSelector(indexCategories);
+  const items = useSelector(itemsPizza);
+  const status = useSelector(statusItemsPizza);
+  const { searchValue, indexCategories } = useSelector(filterState);
 
-export function Home({ items }) {
-  const { loader, categories, inputValue, setCountPage } = React.useContext(Context);
-  const indexActive = useSelector((state) => state.filter.indexCategories);
   let filtrItems =
-    inputValue === ''
+    searchValue === ""
       ? items
-      : items.filter((item) => item.title.toLowerCase().includes(inputValue.toLowerCase()));
+      : items.filter((item) =>
+          item.title.toLowerCase().includes(searchValue.toLowerCase())
+        );
   // React.useEffect(() => {
   //   const queryString = qs.stringify({
   //     categories,
@@ -28,11 +36,18 @@ export function Home({ items }) {
         <Categories />
         <Sort />
       </div>
-      <h2 className="content__title">{categories[indexActive]} пиццы</h2>
+      <h2 className="content__title">{categories[indexCategories]} пиццы</h2>
       <div className="content__items">
-        {loader
-          ? filtrItems.map((item) => <Card key={item.id} {...item} />)
-          : [...Array(8)].map((i) => <Loader key={i} />)}
+        {status === "loading" ? (
+          [...Array(8)].map((i) => <Loader key={i} />)
+        ) : status === "success" ? (
+          filtrItems.map((item) => <Card key={item.id} {...item} />)
+        ) : (
+          <div className="content__error-info">
+            <h2>Произошла ошибка</h2>{" "}
+            <p>К сожалению не получилось подгрузить пиццы</p>
+          </div>
+        )}
       </div>
       <Pagination onChangePage={(number) => setCountPage(number)} />
     </>

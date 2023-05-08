@@ -1,5 +1,5 @@
 import React from 'react';
-import { setIndexSort } from '../redux/slices/filterSlice';
+import { setIndexSort, setAscDesc } from '../redux/slices/filterSlice';
 import { Context } from '../Context';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -7,6 +7,8 @@ export function Sort() {
   const [sortActive, setSortActive] = React.useState(false);
   const { sortList } = React.useContext(Context);
   const indexSort = useSelector((state) => state.filter.indexSort);
+  const checkAscDesc = useSelector((state) => state.filter.ascDesc);
+
   const dispatch = useDispatch();
   let sortItem = sortList[indexSort];
 
@@ -14,10 +16,16 @@ export function Sort() {
     <div
       tabIndex="1"
       onBlur={() => setSortActive(false)}
-      onClick={() => setSortActive(!sortActive)}
       className="sort">
       <div className="sort__label">
-        <img src="./img/arrow.svg" className={`sort__label ${sortActive ? 'active' : ''}`} />
+
+        <div
+        className='sort__block'>
+        <img 
+        onClick={() => dispatch(setAscDesc())} 
+        src="./img/arrow.svg"
+        className={`sort__label ${checkAscDesc ? 'active' : ''}`} />
+        <div onClick={() => setSortActive(!sortActive)}>
         <b>Сортировка по:</b>
         <span>{sortItem.name}</span>
         <div className={`sort__popup ${sortActive ? 'sort__open' : ''}`}>
@@ -33,6 +41,8 @@ export function Sort() {
               );
             })}
           </ul>
+        </div>
+        </div>
         </div>
       </div>
     </div>

@@ -1,56 +1,63 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import qs from 'qs';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { Home } from './pages/Home';
-import { Header } from './components/Header';
-import { Cart } from './pages/Cart/Cart';
-import {PizzaPage} from './components/PizzaPage';
-import { NotFoundPage } from './components/NotFoundPage';
-import './index.scss';
-import { Routes, Route } from 'react-router-dom';
-import { Context } from './Context';
-// import { setFilters } from './redux/slices/filterSlice';
-import { useDispatch } from 'react-redux';
+import React from "react";
+import { useSelector } from "react-redux";
+import qs from "qs";
+import { useNavigate } from "react-router-dom";
+import { Home } from "./pages/Home";
+import { Header } from "./components/Header";
+import { Cart } from "./pages/Cart/Cart";
+import { PizzaPage } from "./components/PizzaPage";
+import { NotFoundPage } from "./components/NotFoundPage";
+import "./index.scss";
+import { Routes, Route } from "react-router-dom";
+import { Context } from "./Context";
+import { useDispatch } from "react-redux";
+import { fetchPizzas } from "./redux/slices/pizzaSlice";
+import { filterState } from "./redux/slices/filterSlice";
 
 function App() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [pizzaItems, addPizzaItems] = React.useState([]);
-  const [loader, setLoader] = React.useState(false);
-  const sortIndex = useSelector((state) => state.filter.indexSort);
-  const [inputValue, setInputValue] = React.useState('');
+  const { indexSort, indexCategories, ascDesc } = useSelector(filterState);
+  const [inputValue, setInputValue] = React.useState("");
   const [countPage, setCountPage] = React.useState(0);
-  const categoriesIndex = useSelector((state) => state.filter.indexCategories);
   const sortList = [
-    { name: 'популярности', sort: 'rating' },
-    { name: 'цене', sort: 'price' },
-    { name: 'алфавиту', sort: 'title' },
+    { name: "популярности", sort: "rating" },
+    { name: "цене", sort: "price" },
+    { name: "алфавиту", sort: "title" },
   ];
-  const categories = ['Все', 'Мясные', 'Вегетарианские', 'Гриль', 'Острые', 'Закрытые'];
+  const categories = [
+    "Все",
+    "Мясные",
+    "Вегетарианские",
+    "Гриль",
+    "Острые",
+    "Закрытые",
+  ];
 
-  const fetchData = async () => {
+  const pizzaGet = async () => {
     try {
-      setLoader(false);
-      const categ = categoriesIndex > 0 ? `category=${categoriesIndex}` : '';
-      const sort = sortList[sortIndex].sort;
-      const sortAscDesc = categoriesIndex === 2 ? `asc` : `desc`;
-      const items = await axios.get(
-        `http://localhost:3001/pizza?_page=${countPage}&_limit=8&${categ}&_sort=${sort}&_order=${sortAscDesc}`,
+      const categ = indexCategories > 0 ? `category=${indexCategories}` : "";
+      const sort = sortList[indexSort].sort;
+      const sortAscDesc = ascDesc ? `asc` : `desc`;
+      dispatch(
+        fetchPizzas({
+          categ,
+          sort,
+          sortAscDesc,
+          countPage,
+        })
       );
-      addPizzaItems(items.data);
-      setLoader(true);
       const queryString = qs.stringify({
         sort,
-        categoriesIndex,
+        indexCategories,
         countPage,
       });
       navigate(`?${queryString}`);
     } catch (error) {
-      alert('Ошибка при подгрузке данных');
+      alert("Ошибка при подгрузке данных");
       console.error(error);
     }
+    window.scrollTo(0, 0);
   };
 
   // React.useEffect(() => {
@@ -68,29 +75,28 @@ function App() {
   // }, []);
 
   React.useEffect(() => {
-    fetchData();
-  }, [categoriesIndex, sortIndex, countPage]);
+    pizzaGet();
+  }, [indexCategories, indexSort, countPage, ascDesc]);
 
   return (
     <Context.Provider
       value={{
-        loader,
         inputValue,
         sortList,
         categories,
         setInputValue,
         setCountPage,
-        pizzaItems
-      }}>
+      }}
+    >
       <div className="wrapper">
         <Header />
         <div className="content">
           <div className="container">
             <Routes>
-              <Route path="/" element={<Home items={pizzaItems} />} />
-              <Route path='/pizzas/:id' element={<PizzaPage/>}/>
+              <Route path="/" element={<Home />} />
+              <Route path="/:id" element={<PizzaPage />} />
               <Route path="/Cart" element={<Cart />} />
-              <Route path="*" element={<NotFoundPage/>}/>
+              <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </div>
         </div>
