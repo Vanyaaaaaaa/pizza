@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import "./Header";
-import { Search } from "./Search";
+import { Search } from "./Search/index";
 import { useSelector } from "react-redux";
 import { selectCart } from "../redux/slices/cartSlice";
-export function Header() {
+export const Header: React.FC = () => {
   const { totalPrice, items } = useSelector(selectCart);
-  const totalCount = items.reduce((sum, item) => sum + item.count, 0);
+  const totalCount = items.reduce(
+    (sum: number, item: any) => sum + item.count,
+    0
+  );
   const location = useLocation();
 
   return (
@@ -37,4 +39,4 @@ export function Header() {
       </div>
     </div>
   );
-}
+};

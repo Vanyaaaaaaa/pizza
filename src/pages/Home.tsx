@@ -6,13 +6,11 @@ import { Card } from "../components/Card";
 import { Sort } from "../components/Sort";
 import { Context } from "../Context";
 import { Loader } from "../components/Loader";
-import { Pagination } from "../components/Pagination";
+import { Pagination } from "../components/Pagination/index";
 import { filterState } from "../redux/slices/filterSlice";
 import { itemsPizza, statusItemsPizza } from "../redux/slices/pizzaSlice";
-export function Home() {
+export const Home: React.FC = () => {
   const { categories, setCountPage } = React.useContext(Context);
-  // const searchValue = useSelector((state) => state.filter.searchValue);
-  // const indexActive = useSelector(indexCategories);
   const items = useSelector(itemsPizza);
   const status = useSelector(statusItemsPizza);
   const { searchValue, indexCategories } = useSelector(filterState);
@@ -52,4 +50,4 @@ export function Home() {
       <Pagination onChangePage={(number) => setCountPage(number)} />
     </>
   );
-}
+};

@@ -1,7 +1,11 @@
-import React from 'react';
-import ReactPaginate from 'react-paginate';
+import React from "react";
+import ReactPaginate from "react-paginate";
 
-export const Pagination = ({ onChangePage }) => {
+type PaginationProps = {
+  onChangePage: any;
+};
+
+export const Pagination: React.FC<PaginationProps> = ({ onChangePage }) => {
   return (
     <div className="pagination">
       <ReactPaginate
@@ -11,7 +15,6 @@ export const Pagination = ({ onChangePage }) => {
         pageRangeDisplayed={4}
         pageCount={2}
         previousLabel="<"
-        renderOnZeroPageCount={null}
       />
     </div>
   );

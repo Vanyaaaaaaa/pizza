@@ -13,18 +13,15 @@ import { Context } from "./Context";
 import { useDispatch } from "react-redux";
 import { fetchPizzas } from "./redux/slices/pizzaSlice";
 import { filterState } from "./redux/slices/filterSlice";
+import { sortList } from "./components/Sort";
 
-function App() {
+export const App: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { indexSort, indexCategories, ascDesc } = useSelector(filterState);
   const [inputValue, setInputValue] = React.useState("");
   const [countPage, setCountPage] = React.useState(0);
-  const sortList = [
-    { name: "популярности", sort: "rating" },
-    { name: "цене", sort: "price" },
-    { name: "алфавиту", sort: "title" },
-  ];
+
   const categories = [
     "Все",
     "Мясные",
@@ -40,6 +37,7 @@ function App() {
       const sort = sortList[indexSort].sort;
       const sortAscDesc = ascDesc ? `asc` : `desc`;
       dispatch(
+        //@ts-ignore
         fetchPizzas({
           categ,
           sort,
@@ -103,6 +101,4 @@ function App() {
       </div>
     </Context.Provider>
   );
-}
-
-export default App;
+};

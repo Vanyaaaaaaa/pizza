@@ -1,10 +1,10 @@
 import React from "react";
-import { Item } from "./CartItem";
+import { CartItem } from "./CartItem";
 import { useDispatch, useSelector } from "react-redux";
 import { clearItems } from "../../redux/slices/cartSlice";
 import { Link } from "react-router-dom";
 
-export function Cart() {
+export const Cart: React.FC = () => {
   let items = useSelector((state) => state.cart.items);
   let totalPrice = useSelector((state) => state.cart.totalPrice);
   const totalCount = items.reduce((sum, item) => sum + item.count, 0);
@@ -28,7 +28,7 @@ export function Cart() {
               </div>
             </div>
             {items.map((item) => {
-              return <Item key={item.id} {...item} />;
+              return <CartItem key={item.id} {...item} />;
             })}
             <div className="cart__bottom">
               <div className="cart__bottom-details">
@@ -68,7 +68,7 @@ export function Cart() {
         ) : (
           <div className="cart cart__empty">
             <h2>
-              Корзина пустая<icon>😕</icon>
+              Корзина пустая<span>😕</span>
             </h2>
             <p>
               Вероятней всего, вы не заказывали ещё пиццу.
@@ -84,4 +84,4 @@ export function Cart() {
       </div>
     </div>
   );
-}
+};

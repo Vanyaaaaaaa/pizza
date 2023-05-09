@@ -5,13 +5,27 @@ import { addItem } from "../redux/slices/cartSlice";
 
 const types = ["Тонкое", "Традиционное"];
 
-export function Card({ id, title, price, imageUrl, sizes }) {
+type CardProps = {
+  id: number;
+  title: string;
+  price: number;
+  imageUrl: string;
+  sizes: number[];
+};
+
+export const Card: React.FC<CardProps> = ({
+  id,
+  title,
+  price,
+  imageUrl,
+  sizes,
+}) => {
   const dispatch = useDispatch();
   const cartItem = useSelector((state) =>
     state.cart.items.find((obj) => obj.id == id)
   );
-  const [type, setType] = React.useState(0);
-  const [size, setSize] = React.useState(0);
+  const [type, setType] = React.useState<Number>(0);
+  const [size, setSize] = React.useState<Number>(0);
 
   const onClickAdd = () => {
     const item = {
@@ -84,4 +98,4 @@ export function Card({ id, title, price, imageUrl, sizes }) {
       </div>
     </div>
   );
-}
+};
